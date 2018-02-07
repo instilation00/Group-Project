@@ -16,9 +16,50 @@
 
 import java.io.*;
 import java.util.Scanner;
-public class Group {
+public class LetterGrade {
+	
+	public static void main(String[] args) throws IOException  { //Read from file, then display it.
+		inputGrade();
+		 double test1 = 0;
+		 double test2 = 0;
+		 double test3 = 0;
+		 double test4 = 0;
+		 double test5 = 0;
+		 
+		 String displayOutput = "";
+		 
+		 File file = new File("grades.txt"); 
+		 PrintWriter outputFile = new PrintWriter(file); 
+		 Scanner inputFile = new Scanner(file); 
+		
+		//inputGrade();
+		while (inputFile.hasNext())
+		{
+			test1 = inputFile.nextDouble();
+			displayOutput += test1 + determineGrade(test1); //Why is this not displaying as it should?
+			
+			test2 = inputFile.nextDouble();
+			displayOutput += test2 + determineGrade(test2);
+			
+			test3 = inputFile.nextDouble();
+			displayOutput += test3 + determineGrade(test3);
+
+			test4 = inputFile.nextDouble();
+			displayOutput += test4 + determineGrade(test4);
+
+			test5 = inputFile.nextDouble();
+			displayOutput += test5 + determineGrade(test5);
+
+		}
+		System.out.print(displayOutput + "Averages: " + calcAverage(test1, test2, test3, test4, test5)); //Why is this part not being displayed?
+		 inputFile.close(); 
+		 
+	}
+	
 	
 	public static void inputGrade() throws IOException {
+		
+		
 		Scanner Keyboard = new Scanner(System.in);
 	    double test1;
 	    double test2;
@@ -27,19 +68,19 @@ public class Group {
 	    double test5;
 	    
 	    System.out.print("What is your first test score?");
-	    test1 = Keyboard.nextInt();
+	    test1 = Keyboard.nextDouble();
 	    
 	    System.out.print("What is your second test score?");
-	    test2 = Keyboard.nextInt();
+	    test2 = Keyboard.nextDouble();
 	    
 	    System.out.print("What is your third test score?");
-	    test3 = Keyboard.nextInt();
+	    test3 = Keyboard.nextDouble();
 	    
-	    System.out.print("What is your fourtht score?");
-	    test4 = Keyboard.nextInt();
+	    System.out.print("What is your fourth score?");
+	    test4 = Keyboard.nextDouble();
 	    
 	    System.out.print("What is your fifth test score?");
-	    test5 = Keyboard.nextInt();
+	    test5 = Keyboard.nextDouble();
 	    
 	    PrintWriter outputFile = new PrintWriter("grades.txt");
 	    outputFile.println(test1);
@@ -51,39 +92,26 @@ public class Group {
 	}
 	
 	public static double calcAverage(double test1, double test2, double test3, double test4, double test5) {
+		
 	    double Average;
 	    Average = ((test1 + test2 + test3 + test4 + test5)/5);
-	    return Average;
+	    return Average; //Why is the average always 0? Should be pulling correctly...
 	}
 	
-	public static void main(String[] args) {
-		InputGrade inputGrade = new inputGrade();
+	public static String determineGrade(double testScores) {
+		String convertedGrade = "";
+		if (testScores >= 90) {
+			convertedGrade = "A";
+		} else if (testScores > 80 && testScores < 89) {
+			convertedGrade = "B";
+		} else if (testScores > 70 && testScores < 79) {
+			convertedGrade = "C";
+		} else if (testScores > 60 && testScores < 69) {
+			convertedGrade = "D";
+		} else if (testScores < 60) {
+			convertedGrade = "F";
+		}
+		return convertedGrade;
 	}
-	
-
-public static void determineGrade(double test1, double test2, double test3, double test4, double test5) {
-   
-	File file = new File("grades.txt");
-	Scanner inputFile = new Scanner(file);
-	
-	while (inputFile.hasNext())
-	{
-		
-	String test1 = inputFile.nextLine();
-	String test2 = inputFile.nextLine();
-	String test3 = inputFile.nextLine();
-	String test4 = inputFile.nextLine();
-	String test5 = inputFile.nextLine();
-	
-	if (Score >= 90)
-		System.out.println("You got an A");
-		else if (Score > 80 && Score < 89)
-		System.out.println("You got a B");
-		else if (Score > 70 && Score < 79)
-		System.out.println("you got a C");
-		else if (Score > 60 && Score < 69)
-		System.out.println("You got a D");
-		else if (Score < 60)
-		System.out.println("You got a F");
-}
+			
 }
