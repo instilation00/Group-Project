@@ -1,4 +1,3 @@
-
 //Program created for CS 142 by Holly Wetzel and Blake Bradley
 
 //Assignment instructions/requirements:
@@ -13,12 +12,41 @@
 //Creativity Points:
 //Witty responses for the letter grades
 //Grade input instead of having the grades hard-coded in grades.txt - done via inputGrade()
-
+// http://www.java67.com/2016/07/how-to-read-text-file-into-arraylist-in-java.html
 import java.io.*;
 import java.util.Scanner;
 public class LetterGrade {
+	public static void main(String[] args) //TODO: Remember to give credit for this since we're pretty much copying this code from the text
+    {
+       int numTests;     // The number of tests
+       int[] tests;      // Array of test scores
+
+       // Create a Scanner object for keyboard input.
+       Scanner keyboard = new Scanner(System.in);
+
+       // Get the number of test scores.
+       System.out.print("How many tests do you have? ");
+       numTests = keyboard.nextInt();
+
+       // Create an array to hold that number of scores.
+       tests = new int[numTests];
+       
+       // Get the individual test scores.
+              for (int index = 0; index < tests.length; index++)
+       {
+          System.out.print("Enter test score " +
+                           (index + 1) + ": ");
+          tests[index] = keyboard.nextInt();
+       }
+
+       // Display the test scores.
+       System.out.println();
+       System.out.println("Here are the scores you entered:");
+       for (int index = 0; index < tests.length; index++)
+          System.out.print(tests[index] + " ");
+    }		
 	
-	public static void main(String[] args) throws IOException  { //Read from file, then display it.
+	/*public static void main(String[] args) throws IOException  { //Read from file, then display it.
 		inputGrade();
 		 double test1 = 0;
 		 double test2 = 0;
@@ -112,6 +140,8 @@ public class LetterGrade {
 			convertedGrade = "F";
 		}
 		return convertedGrade;
-	}
-			
+	}*/
+	
+   
+	 
 }
