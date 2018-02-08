@@ -56,7 +56,9 @@ public class LetterGrade {
 			}
 
 		}
+		
 		System.out.println("Total Test Average: " + calcAverage(test1, test2, test3, test4, test5));
+		outputFile.close();
 	}
 	
 	public static String determineGrade(double testScore) {
