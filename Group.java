@@ -1,55 +1,40 @@
+//Program created by Holly Wetzel and Blake Bradley
+//Credits: Page 420 of the textbook, https://stackoverflow.com/questions/12002332/how-to-manipulate-arrays-find-the-average-beginner-java
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 public class LetterGrade {
-	
-	public static void main(String[] args) throws IOException {
-		Scanner scanner = new Scanner(System.in);
-		PrintWriter outputFile = new PrintWriter("grades.txt");
-		int totalTestInput;
-		int testInput;
-		int test1 = 0;
-		int test2 = 0;
-		int test3 = 0;
-		int test4 = 0;
-		int test5 = 0;
-		String displayString = "Test Score & Letter Grade: ";
-		
-		System.out.println("How many tests to enter? ");
-		totalTestInput = scanner.nextInt();
-		
-		for(int totalTests = 1; totalTests <= totalTestInput; totalTests++) {
-			System.out.println("Please enter test score " + totalTests);
-			testInput = scanner.nextInt();
-			
-			if(totalTests == 1) {
-				test1 = testInput;
-				outputFile.println(test1);
-				System.out.println(displayString + test1 + "   " + determineGrade(test1));
-			} else if (totalTests == 2) {
-			    test2 = testInput;
-				outputFile.println(test2);
-				System.out.println(displayString + test2 + "   " + determineGrade(test2));
-			} else if (totalTests == 3) {
-				test3 = testInput;
-				 outputFile.println(test3);
-				 System.out.println(displayString + test3 + "   " + determineGrade(test3));
-			} else if (totalTests == 4) {
-				test4 = testInput;
-				 outputFile.println(test4);
-				 System.out.println(displayString + test4 + "   " + determineGrade(test4));
-			} else if (totalTests == 5) {
-				test5 = testInput;
-				 outputFile.println(test5);
-				 System.out.println(displayString + test5 + "   " + determineGrade(test5));
-			}
+	public static void main(String[] args) throws IOException
+    {
+       int numTests;	 //Total number of tests
+       int[] tests;      //Array of test scores
 
-		}
-		
-		System.out.println("Total Test Average: " + calcAverage(test1, test2, test3, test4, test5, totalTestInput));
-		outputFile.close();
+       Scanner keyboard = new Scanner(System.in);
+       PrintWriter outputFile = new PrintWriter("grades.txt");
+
+       //Asks user for total number of test scores
+       System.out.print("How many test scores to enter? ");
+       numTests = keyboard.nextInt();
+
+       //Asks user for individual test scores and stores them in grades.txt
+       tests = new int[numTests];
+       for (int index = 0; index < tests.length; index++)
+       	{
+    	   	System.out.print("Enter test score " + (index + 1) + ": ");
+    	   	tests[index] = keyboard.nextInt();
+    	   	outputFile.println(tests[index]);
+       	}
+       
+       // Display the entered test scores, their converted letter grade, and average
+       System.out.println();
+       System.out.println("Here are the scores you entered:");
+       for (int index = 0; index < tests.length; index++)
+          System.out.println(tests[index] + "%" + "   " + determineGrade(tests[index]) + "   " );
+       System.out.println("Total Test Average: " + calcAverage(tests) + "%");
+       outputFile.close();
 	}
 	
+	//Converts entered grade to letter grade
 	public static String determineGrade(int testScore) {
 		String convertedGrade = "";
 		if (testScore > 101)
@@ -68,11 +53,12 @@ public class LetterGrade {
 		return convertedGrade;
 	}
 	
-	
-	public static double calcAverage(int test1, int test2, int test3, int test4, int test5, int totalTestInput) {
-		double average;
-		average = ((test1 + test2 + test3 + test4 + test5) / totalTestInput);
-		return average;
+	//Calculates the average of the tests
+	public static int calcAverage(int[] tests) {  
+	    int sum = 0;
+	    for(int i=0; i < tests.length; i++)  
+	    	sum = sum + tests[i]; 
+	    int testAverage = sum / tests.length;
+	    return testAverage;
 	}
-
 }
