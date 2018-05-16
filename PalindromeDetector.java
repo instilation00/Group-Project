@@ -7,29 +7,32 @@ public class PalindromeDetector {
 
 	public static void main(String[] args) throws IOException{
 		
-		
 		PrintWriter textFile = new PrintWriter ("data.txt");
 		Scanner inFile = new Scanner (System.in);
 		System.out.println("File data.txt has been opened.");
 		
 		//Hard coded palindromes to use as test cases
-		String p1 = JOptionPane.showInputDialog("racecar");
-		String p2 = JOptionPane.showInputDialog("kayak");
-		String p3 = JOptionPane.showInputDialog("able was i ere i saw elba");
-		String p4 = JOptionPane.showInputDialog("not a palindrome");
+		String p1 = "racecar";
+		String p2 = "kayak";
+		String p3 = "able was i ere i saw elba";
 		
+		textFile.println("Hard-Coded examples of palindromes:");
 		textFile.println(p1);
 		textFile.println(p2);
 		textFile.println(p3);
-		textFile.println(p4);
+
 		
+		String userInput = JOptionPane.showInputDialog("Please enter a string that you would like to check for a palindrome.");
+		textFile.println(userInput);
 		textFile.close();
 		
+		System.out.println("Examples of palindromes:" );
 		System.out.println("Test case 1 is " + palindromeTester(p1) + " for " + p1);
 		System.out.println("Test case 2 is " + palindromeTester(p2) + " for " + p2);
 		System.out.println("Test case 3 is " + palindromeTester(p3) + " for " + p3);
-		System.out.println("Test case 4 is " + palindromeTester(p4) + " for " + p4);
-
+		
+		System.out.println("");
+		System.out.println("Your entered string:" + palindromeTester(userInput));
 	}
 	
 	public static boolean palindromeTester(String string) {
