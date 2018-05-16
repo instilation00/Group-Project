@@ -5,24 +5,25 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 public class PalindromeDetector {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
 		
-		try
-		{
-		 FileInputStream textFile = new FileInputStream ("data.txt");
-		 Scanner inFile = new Scanner (textFile);
-		 System.out.println("File data.txt has been opened.");
-		}
-		catch (FileNotFoundException fnfe)
-		{
-		 System.out.println("File data.txt was not found!");
-		}
+		
+		PrintWriter textFile = new PrintWriter ("data.txt");
+		Scanner inFile = new Scanner (System.in);
+		System.out.println("File data.txt has been opened.");
 		
 		//Hard coded palindromes to use as test cases
 		String p1 = JOptionPane.showInputDialog("racecar");
 		String p2 = JOptionPane.showInputDialog("kayak");
 		String p3 = JOptionPane.showInputDialog("able was i ere i saw elba");
 		String p4 = JOptionPane.showInputDialog("not a palindrome");
+		
+		textFile.println(p1);
+		textFile.println(p2);
+		textFile.println(p3);
+		textFile.println(p4);
+		
+		textFile.close();
 		
 		System.out.println("Test case 1 is " + palindromeTester(p1) + " for " + p1);
 		System.out.println("Test case 2 is " + palindromeTester(p2) + " for " + p2);
