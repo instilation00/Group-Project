@@ -1,14 +1,19 @@
 //Java Program by Holly Wetzel & Blake Bradley
 import java.util.Stack;
 import java.io.* ;
-import java.util.Scanner; 
 import javax.swing.JOptionPane;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 public class PalindromeDetector {
 
 	public static void main(String[] args) throws IOException{
 		
+		
+	
+		
 		PrintWriter textFile = new PrintWriter ("data.txt");
-		Scanner inFile = new Scanner (System.in);
 		System.out.println("File data.txt has been opened.");
 		
 		//Hard coded palindromes to use as test cases
@@ -16,23 +21,59 @@ public class PalindromeDetector {
 		String p2 = "kayak";
 		String p3 = "able was i ere i saw elba";
 		
-		textFile.println("Hard-Coded examples of palindromes:");
 		textFile.println(p1);
 		textFile.println(p2);
 		textFile.println(p3);
 
-		
 		String userInput = JOptionPane.showInputDialog("Please enter a string that you would like to check for a palindrome.");
 		textFile.println(userInput);
 		textFile.close();
 		
-		System.out.println("Examples of palindromes:" );
-		System.out.println("Test case 1 is " + palindromeTester(p1) + " for " + p1);
-		System.out.println("Test case 2 is " + palindromeTester(p2) + " for " + p2);
-		System.out.println("Test case 3 is " + palindromeTester(p3) + " for " + p3);
+		//Credits to http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html for the try-catch loop
+		 try {
+			File file = new File("data.txt");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			StringBuffer stringBuffer = new StringBuffer();
+			String line;
+			
+			line = bufferedReader.readLine();
+			stringBuffer.append(line);
+			System.out.println(palindromeTester(stringBuffer.toString()));
+			stringBuffer.append("\n");
+			line = bufferedReader.readLine();
+			stringBuffer.append(line);
+			System.out.println(palindromeTester(stringBuffer.toString()));
+			stringBuffer.append("\n");
+			stringBuffer.append(line);
+			System.out.println(palindromeTester(stringBuffer.toString()));
+			stringBuffer.append("\n");	
+			stringBuffer.append(line);
+			System.out.println(palindromeTester(stringBuffer.toString()));
+			stringBuffer.append("\n");	
+			
+
+			fileReader.close();
+			
+			/*while ((line = bufferedReader.readLine()) != null) {
+				
+			}*/
+			
 		
-		System.out.println("");
-		System.out.println("Your entered string:" + palindromeTester(userInput));
+			//System.out.println("Contents of file:");
+			//System.out.println(stringBuffer.toString());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//System.out.println("Examples of palindromes:" );
+		//System.out.println("Test case 1 is " + palindromeTester(p1) + " for " + p1);
+		//System.out.println("Test case 2 is " + palindromeTester(p2) + " for " + p2);
+		//System.out.println("Test case 3 is " + palindromeTester(p3) + " for " + p3);
+		
+		//System.out.println("");
+		//System.out.println("Your entered string:" + palindromeTester(userInput));
 	}
 	
 	public static boolean palindromeTester(String string) {
