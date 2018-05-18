@@ -1,32 +1,32 @@
 //Java Program by Holly Wetzel & Blake Bradley
 import java.util.Stack;
-import java.io.* ;
-import javax.swing.JOptionPane;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import javax.swing.*;
+import java.io.*;
 public class PalindromeDetector {
 
 	public static void main(String[] args) throws IOException{
 		
-		
-	
-		
 		PrintWriter textFile = new PrintWriter ("data.txt");
-		System.out.println("File data.txt has been opened.");
-		
-		//Hard coded palindromes to use as test cases
-		String p1 = "racecar";
-		String p2 = "kayak";
-		String p3 = "able was i ere i saw elba";
-		
-		textFile.println(p1);
-		textFile.println(p2);
-		textFile.println(p3);
+        JPanel panel = new JPanel();
+		Object[] JOptions = { "Stacks", "Recursion"};
+		int counter = 0;
+		String stackRecurCheck = null;
+		String lineDisplay = null;
+		String palindromes;
+        
+		palindromes = JOptionPane.showInputDialog("How many possible palindromes would you like to test? (1-5)");
+		for (int i = 0; i < Integer.parseInt(palindromes); i++) {
+			String userInput = JOptionPane.showInputDialog("Please enter a string that you would like to check for a palindrome.");
+			textFile.println(userInput);
+		}
 
-		String userInput = JOptionPane.showInputDialog("Please enter a string that you would like to check for a palindrome.");
-		textFile.println(userInput);
+        panel.add(new JLabel("Would you like to check these string(s) using stacks, or recursion?"));
+        int result = JOptionPane.showOptionDialog(null, panel, "Stack or Recursive?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, JOptions, null);
+        if (result == JOptionPane.YES_OPTION) {
+        	stackRecurCheck = "Stacks";
+        } else if (result == JOptionPane.NO_OPTION) {
+        	stackRecurCheck = "Recursion";
+        }
 		textFile.close();
 		
 		//Credits to http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html for the try-catch loop
@@ -37,46 +37,69 @@ public class PalindromeDetector {
 			StringBuffer stringBuffer = new StringBuffer();
 			String line;
 			
-			line = bufferedReader.readLine();
-			stringBuffer.append(line);
-			System.out.println(palindromeTester(stringBuffer.toString()));
-			stringBuffer.append("\n");
-			line = bufferedReader.readLine();
-			stringBuffer.append(line);
-			System.out.println(palindromeTester(stringBuffer.toString()));
-			stringBuffer.append("\n");
-			stringBuffer.append(line);
-			System.out.println(palindromeTester(stringBuffer.toString()));
-			stringBuffer.append("\n");	
-			stringBuffer.append(line);
-			System.out.println(palindromeTester(stringBuffer.toString()));
-			stringBuffer.append("\n");	
-			
-
-			fileReader.close();
-			
-			/*while ((line = bufferedReader.readLine()) != null) {
+			//Credit to https://stackoverflow.com/questions/1277880/how-can-i-get-the-count-of-line-in-a-file-in-an-efficient-way/1277904 for total lines in a text file checker
+			BufferedReader reader = new BufferedReader(new FileReader("data.txt"));
+			int lines = 0;
+			while (reader.readLine() != null) lines++;
+			reader.close();
 				
-			}*/
-			
-		
-			//System.out.println("Contents of file:");
-			//System.out.println(stringBuffer.toString());
-			
+			for (int j = 0; j < lines; j++) {
+				line = bufferedReader.readLine();
+				stringBuffer.append(line);
+				lineDisplay = line;
+				
+				if (stackRecurCheck == "Stacks") {
+					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString()));
+					System.out.println("");
+				}
+				
+				if (stackRecurCheck == "Recursion") {
+					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString()));
+					System.out.println("");
+				}
+				
+				fileReader.close();
+				
+				if (Integer.parseInt(palindromes) > counter) {
+					fileReader = new FileReader(file);
+					bufferedReader = new BufferedReader(fileReader);
+					stringBuffer = new StringBuffer();
+					bufferedReader.readLine();
+					if (counter == 1) {
+						bufferedReader.readLine();
+					}
+					if (counter == 2) {
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+					}
+					if (counter == 3) {
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+					}
+					if (counter == 4) {
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+					}
+					if (counter == 5) {
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+						bufferedReader.readLine();
+					}
+				}
+				counter++;
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//System.out.println("Examples of palindromes:" );
-		//System.out.println("Test case 1 is " + palindromeTester(p1) + " for " + p1);
-		//System.out.println("Test case 2 is " + palindromeTester(p2) + " for " + p2);
-		//System.out.println("Test case 3 is " + palindromeTester(p3) + " for " + p3);
-		
-		//System.out.println("");
-		//System.out.println("Your entered string:" + palindromeTester(userInput));
 	}
 	
-	public static boolean palindromeTester(String string) {
+	public static boolean palindromeTesterStack(String string) {
 		Stack<Character> s1 = new Stack<>(); //Preserves the string
 		Stack<Character> s2 = new Stack<>(); //Reverses the string
 		
@@ -91,5 +114,13 @@ public class PalindromeDetector {
 			s2.push(clone.pop());
 		}
 		return s1.equals(s2);
+	}
+	
+	public static boolean  palindromeTesterRecursive(String string) {
+		if (string.length() == 0 || string.length() == 1)
+			return true;
+		if (string.charAt(0) == string.charAt(string.length()-1))
+			return palindromeTesterRecursive(string.substring(1, string.length()-1));
+		return false;
 	}
 }
