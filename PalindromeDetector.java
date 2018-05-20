@@ -49,13 +49,28 @@ public class PalindromeDetector {
 				lineDisplay = line;
 				
 				if (stackRecurCheck == "Stacks") {
-					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString()));
+					if (palindromeTesterStack(line) == true) {
+					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString())
+					+ ".");
 					System.out.println("");
+				  } else if (palindromeTesterStack(line) == false) {
+					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString()) 
+					+ ". Remember that a palindrome is a word, phrase, or sequence that reads the same backward as forward. Please try again.");
+					System.out.println("");
+				  }
+					
 				}
 				
 				if (stackRecurCheck == "Recursion") {
-					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString()));
+					if (palindromeTesterRecursive(line) == true) {
+					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString()) 
+					+ ".");
 					System.out.println("");
+				  } else if (palindromeTesterRecursive(line) == false) {
+					System.out.println("Your entered string was " + "''" + lineDisplay + "''" + " and using " + stackRecurCheck + " we have determined that your string is " + palindromeTesterRecursive(stringBuffer.toString()) 
+					+ ". Remember that a palindrome is a word, phrase, or sequence that reads the same backward as forward. Please try again.");
+					System.out.println("");
+				  }
 				}
 				
 				fileReader.close();
